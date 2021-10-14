@@ -1,3 +1,4 @@
+import * as printMe from 'print-js';
 import Boxscore from './boxscore/boxscore';
 import BoxscorePlayer from './boxscore-player/boxscore-player';
 import Client from './client/client';
@@ -13,5 +14,6 @@ export {
   FreeAgentPlayer,
   Player,
   PlayerStats,
-  Team
+  Team,
+  printMe
 };

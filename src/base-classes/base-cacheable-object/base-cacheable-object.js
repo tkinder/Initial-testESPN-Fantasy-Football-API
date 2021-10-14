@@ -15,7 +15,7 @@ import BaseObject from '../base-object/base-object.js';
  * from `getCacheId` is valid (see `_populateObject` for an example). Otherwise the cache will not
  * be in the correct state.
  *
- * @extends {BaseObject}
+ * @augments {BaseObject}
  */
 class BaseCacheableObject extends BaseObject {
   static displayName = 'BaseCacheableObject';
@@ -23,6 +23,7 @@ class BaseCacheableObject extends BaseObject {
   /**
    * Defers to `BaseObject._populateObject` and then caches the instance using the caching id from
    * `getCacheId`.
+   *
    * @override
    */
   static _populateObject({
@@ -39,12 +40,15 @@ class BaseCacheableObject extends BaseObject {
     return populatedInstance;
   }
 
+  // eslint-disable-next-line jsdoc/require-returns
   /**
    * Returns all cached instances of an BaseCacheableObject. If no cache exists, a cache object is
    * created. This implementation ensures each class has a unique cache of only instances of the
    * BaseCacheableObject that does not overlap with other BaseCacheableObject classes. The keys of
-   * the cache should use the caching id implemented in `getCacheId`.
+   * the cache should use the caching id implemented in `getCacheId`
+   *
    * @return {Object.<String, BaseCacheableObject>} The cache of BaseCacheableObjects.
+   *
    */
   static get cache() {
     if (!this._cache) {
@@ -56,7 +60,9 @@ class BaseCacheableObject extends BaseObject {
 
   /**
    * Sets the cache object.
-   * @param {Object.<String, BaseCacheableObject>} cache
+   * \
+   * @param {prefer: "object".<String, BaseCacheableObject>} cache
+   *
    */
   static set cache(cache) {
     this._cache = cache;
@@ -69,6 +75,7 @@ class BaseCacheableObject extends BaseObject {
     this._cache = {};
   }
 
+  // eslint-disable-next-line jsdoc/require-returns
   /**
    * Returns a cached instance matching the passed caching id if it exists. Otherwise, returns
    * undefined.

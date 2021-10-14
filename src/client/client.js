@@ -56,7 +56,7 @@ class Client {
     });
 
     return axios.get(route, this._buildAxiosConfig()).then((response) => {
-      const schedule = _.get(response.data, "schedule");
+      const schedule = _.get(response.data, 'schedule');
       const data = _.filter(schedule, { matchupPeriodId });
 
       return _.map(data, (matchup) =>
@@ -96,11 +96,11 @@ class Client {
       baseURL: 'https://fantasy.espn.com/apis/v3/games/ffl/leagueHistory/'
     });
     return axios.get(route, axiosConfig).then((response) => {
-      const schedule = _.get(response.data[0], "schedule"); // Data is an array instead of object
+      const schedule = _.get(response.data[0], 'schedule'); // Data is an array instead of object
       const data = _.filter(schedule, { matchupPeriodId });
 
-      return _.map(data, (matchup) =>
-        Boxscore.buildFromServer(matchup, { leagueId: this.leagueId, seasonId }));
+      // eslint-disable-next-line max-len
+      return _.map(data, (matchup) => Boxscore.buildFromServer(matchup, { leagueId: this.leagueId, seasonId }));
     });
   }
 
@@ -122,10 +122,10 @@ class Client {
 
     const config = this._buildAxiosConfig({
       headers: {
-        "x-fantasy-filter": JSON.stringify({
+        'x-fantasy-filter': JSON.stringify({
           players: {
             filterStatus: {
-              value: ["FREEAGENT", "WAIVERS"],
+              value: ['FREEAGENT', 'WAIVERS'],
             },
             limit: 2000,
             sortPercOwned: {
@@ -138,12 +138,11 @@ class Client {
     });
 
     return axios.get(route, config).then((response) => {
-      const data = _.get(response.data, "players");
-      return _.map(data, (player) =>
-        FreeAgentPlayer.buildFromServer(player, {
-          leagueId: this.leagueId,
-          seasonId
-        }));
+      const data = _.get(response.data, 'players');
+      return _.map(data, (player) => FreeAgentPlayer.buildFromServer(player, {
+        leagueId: this.leagueId,
+        seasonId
+      }));
     });
   }
 
@@ -162,9 +161,9 @@ class Client {
     });
 
     return axios.get(route, this._buildAxiosConfig()).then((response) => {
-      const data = _.get(response.data, "teams");
-      return _.map(data, (team) =>
-        Team.buildFromServer(team, { leagueId: this.leagueId, seasonId }));
+      const data = _.get(response.data, 'teams');
+      // eslint-disable-next-line max-len
+      return _.map(data, (team) => Team.buildFromServer(team, { leagueId: this.leagueId, seasonId }));
     });
   }
 
@@ -187,7 +186,7 @@ class Client {
     });
 
     return axios.get(route, axiosConfig).then((response) => {
-      const data = _.get(response.data, "events");
+      const data = _.get(response.data, 'events');
       return _.map(data, (game) => NFLGame.buildFromServer(game));
     });
   }
